@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <title>AV3 | Computação Gráfica</title>
+        <style>
+            canvas {
+                border: 1px solid black;
+                display: block;
+                margin: 20px auto;
+            }
+            label {
+                display: block;
+                text-align: center;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas" width="300" height="300"></canvas>
+
+        <label for="segments"
+            >Número de segmentos:
+            <input type="number" id="segments" value="8" min="3" max="100" step="1" />
+            <button onclick="drawCircle()">Desenhar</button>
+        </label>
+
+        <script>
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 100;
+
+            function drawCircle() {
+                const segments = parseInt(document.getElementById("segments").value);
+                const angleStep = (2 * Math.PI) / segments;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+
+                for (let i = 0; i <= segments; i++) {
+                    const angle = i * angleStep;
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+
+                ctx.strokeStyle = "blue";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            drawCircle();
+        </script>
+    </body>
+</html>
